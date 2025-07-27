@@ -3,7 +3,7 @@ name: callattendant
 version: "1.0.0"
 slug: callattendant
 description: Phone blocker and voice message system
-url: "https://github.com/guyfawkes73/addons/callattendant"
+url: "https://github.com/guyfawkes73/homeassitant-addon/callattendant"
 arch:
   - armhf
   - armv7
@@ -18,7 +18,7 @@ ports:
 uart: true
 devices:
   - /dev/ttyACM0
-image: "ghcr.io/guyfawkes73/{arch}-addon-callattendant"
+image: "ghcr.io/GuyFawkes73/{arch}-addon-callattendant"
 map:
   - share:rw
 options:
