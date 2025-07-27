@@ -1,0 +1,18 @@
+# File di cache e compilati di Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# File di log
+*.log
+
+# Database SQLite (se non vuoi condividerlo)
+# *.db
+
+# Cartella con le impostazioni locali di VS Code.
+# Spesso è utile ignorarla per non condividere le proprie preferenze personali.
+# ATTENZIONE: il tuo file tasks.json è qui dentro. Se vuoi condividerlo
+# con altri collaboratori, puoi fare un'eccezione.
+.vscode/
+ms.py
