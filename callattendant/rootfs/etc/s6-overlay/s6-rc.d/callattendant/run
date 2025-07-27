@@ -1,0 +1,76 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start the example service
+# s6-overlay docs: https://github.com/just-containers/s6-overlay
+# ==============================================================================
+
+# Add your code here
+
+APP_CFG=/home/callattendant/app.cfg
+
+
+if bashio::config.has_value "debug"; then
+
+  sed -i "s:^DEBUG =.*:DEBUG = $(bashio::config 'debug'):" $APP_CFG
+
+fi
+
+if bashio::config.has_value "screening_mode"; then
+
+  sed -i "s:^SCREENING_MODE =.*:SCREENING_MODE = $(bashio::config '"screening_mode"'):" $APP_CFG
+
+fi
+
+if bashio::config.has_value "blocked_actions"; then
+
+  sed -i "s:^BLOCKED_ACTIONS =.*:BLOCKED_ACTIONS = $(bashio::config '"blocked_actions"'):" $APP_CFG
+
+fi
+
+if bashio::config.has_value "SCREENED_ACTIONS"; then
+
+  sed -i "s:^SCREENED_ACTIONS =.*:SCREENED_ACTIONS = $(bashio::config '"SCREENED_ACTIONS"'):" $APP_CFG
+
+fi
+
+if bashio::config.has_value "BLOCK_SERVICE"; then
+
+  sed -i "s:^BLOCK_SERVICE =.*:BLOCK_SERVICE = $(bashio::config '"BLOCK_SERVICE"'):" $APP_CFG
+
+fi
+
+if bashio::config.has_value "mqtt.mqtt_broker_url"; then
+
+  echo "MQTT_BROKER_URL = $(bashio::config 'mqtt.mqtt_broker_url')" >> $APP_CFG
+
+fi
+
+if bashio::config.has_value "mqtt.mqtt_broker_port"; then
+
+  echo "MQTT_BROKER_PORT = $(bashio::config 'mqtt.mqtt_broker_port')" >> $APP_CFG
+
+fi
+
+if bashio::config.has_value "mqtt.mqtt_user_name"; then
+
+  echo "MQTT_USERNAME = $(bashio::config 'mqtt.mqtt_user_name')" >> $APP_CFG
+
+fi
+
+if bashio::config.has_value "mqtt.mqtt_user_password"; then
+
+  echo "MQTT_PASSWORD = $(bashio::config 'mqtt.mqtt_user_password')" >> $APP_CFG
+
+fi
+
+if bashio::config.has_value "mqtt.mqtt_keepalive"; then
+
+  echo "MQTT_KEEPALIVE = $(bashio::config 'mqtt.mqtt_keepalive')" >> $APP_CFG
+
+fi
+
+
+## Run your program
+#exec 2>&1
+/home/callattendant/.venv/bin/python3 /callattendant/__main__.py --create-folder --config /data/callattendant/app.cfg --data-path /data/callattendant/
+

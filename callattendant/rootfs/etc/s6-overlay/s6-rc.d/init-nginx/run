@@ -1,0 +1,11 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Home Assistant Community Add-on: SQLite Web
+# Configures NGINX for use with SQLite Web
+# ==============================================================================
+
+# Generate Ingress configuration
+export INGRESS_PATH=${INGRESS_PATH:-callattendant}
+
+# Generate nginx.conf from template
