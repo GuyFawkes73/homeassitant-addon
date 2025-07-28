@@ -18,7 +18,7 @@ ports:
 uart: true
 devices:
   - /dev/ttyACM0
-image: "ghcr.io/GuyFawkes73/{arch}-addon-callattendant"
+image: "ghcr.io/guyfawkes73/{arch}-addon-callattendant"
 map:
   - share:rw
 options:
