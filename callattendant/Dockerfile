@@ -10,19 +10,28 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -sSLf -o /usr/bin/tempio \
     "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
 RUN \
-     apk add  --no-cache python3  py3-pip py3-lxml nginx gettext --no-cache \
+     apk add   python3  py3-pip py3-lxml nginx gettext --no-cache \
      && rm -f -r \
       /etc/nginx \
       /tmp/*
 
 # Crea le directory necessarie per nginx e imposta i permessi corretti
-RUN mkdir -p /run/nginx \
-    && mkdir -p /var/lib/nginx/logs \
-    && mkdir -p /var/lib/nginx/tmp/client_body \
-    && chown -R nginx:nginx /run/nginx /var/lib/nginx
+
+RUN \
+    case "${BUILD_ARCH}" in \
+        "armv7") \
+             mkdir -p /run/nginx \
+             && mkdir -p /var/lib/nginx/logs \
+             && mkdir -p /var/lib/nginx/tmp/client_body \
+             && chown -R root:root /run/nginx /var/lib/nginx
+            ;; \
+        *) \
+            echo "Architettura non gestita: ${BUILD_ARCH}, eseguo comandi di default..." \
+            ;; \
+    esac
 
 COPY rootfs /
-COPY requirements.txt callattendant
+
 
 RUN mkdir -p /home/callattendant/.venv \
     && python3 -m venv /home/callattendant/.venv \
