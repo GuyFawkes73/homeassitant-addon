@@ -39,38 +39,22 @@ if bashio::config.has_value "BLOCK_SERVICE"; then
 
 fi
 
-if bashio::config.has_value "mqtt.mqtt_broker_url"; then
-
-  echo "MQTT_BROKER_URL = $(bashio::config 'mqtt.mqtt_broker_url')" >> $APP_CFG
-
-fi
-
-if bashio::config.has_value "mqtt.mqtt_broker_port"; then
-
-  echo "MQTT_BROKER_PORT = $(bashio::config 'mqtt.mqtt_broker_port')" >> $APP_CFG
-
-fi
-
-if bashio::config.has_value "mqtt.mqtt_user_name"; then
-
-  echo "MQTT_USERNAME = $(bashio::config 'mqtt.mqtt_user_name')" >> $APP_CFG
-
-fi
-
-if bashio::config.has_value "mqtt.mqtt_user_password"; then
-
-  echo "MQTT_PASSWORD = $(bashio::config 'mqtt.mqtt_user_password')" >> $APP_CFG
-
-fi
-
-if bashio::config.has_value "mqtt.mqtt_keepalive"; then
-
-  echo "MQTT_KEEPALIVE = $(bashio::config 'mqtt.mqtt_keepalive')" >> $APP_CFG
-
+# Impostazioni MQTT
+# Controlla se l'utente ha fornito i dati manualmente
+if bashio::config.has_value 'mqtt.mqtt_broker_url'; then
+    bashio::log.info "Manual MQTT configuration found, configuring MQTT..."
+    # Le stringhe in Python dovrebbero essere tra virgolette
+    echo "MQTT_BROKER_URL = \"$(bashio::config 'mqtt.mqtt_broker_url')\"" >> "${APP_CFG}"
+    echo "MQTT_BROKER_PORT = $(bashio::config 'mqtt.mqtt_broker_port')" >> "${APP_CFG}"
+    echo "MQTT_USERNAME = \"$(bashio::config 'mqtt.mqtt_username')\"" >> "${APP_CFG}"
+    echo "MQTT_PASSWORD = \"$(bashio::config 'mqtt.mqtt_password')\"" >> "${APP_CFG}"
+    echo "MQTT_KEEPALIVE = $(bashio::config 'mqtt.mqtt_keepalive')" >> "${APP_CFG}"
+else
+    bashio::log.warning "MQTT not configured. Using defaults from application."
 fi
 
 
 ## Run your program
 #exec 2>&1
-/home/callattendant/.venv/bin/python3 /callattendant/__main__.py --create-folder --config /data/callattendant/app.cfg --data-path /data/callattendant/
+/home/callattendant/.venv/bin/python3 /callattendant/__main__.py --create-folder --config /home/callattendant/app.cfg --data-path /data/callattendant/
 
