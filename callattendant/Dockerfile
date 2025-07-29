@@ -16,7 +16,6 @@ RUN \
       /tmp/*
 
 # Crea le directory necessarie per nginx e imposta i permessi corretti
-
 RUN \
     case "${BUILD_ARCH}" in \
         "armv7") \
