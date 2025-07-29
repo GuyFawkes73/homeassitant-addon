@@ -9,6 +9,7 @@ bashio::net.wait_for 5000
 
 bashio::log.info "Starting NGINX..."
 
+chown -R nginx:nginx /run/nginx /var/lib/nginx
 
 # Start NGINX
-nginx -g 'daemon off;'
+exec nginx -c /etc/nginx/nginx.conf -g "daemon off;"

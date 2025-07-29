@@ -15,12 +15,11 @@ RUN \
       /etc/nginx \
       /tmp/*
 
-RUN mkdir -p /var/lib/nginx/tmp/client_body \
+# Crea le directory necessarie per nginx e imposta i permessi corretti
+RUN mkdir -p /run/nginx \
     && mkdir -p /var/lib/nginx/logs \
-    && mkdir -p /run/nginx \
-    && chown -R nginx:nginx /var/lib/nginx /run/nginx \
-    && touch /var/lib/nginx/logs/error.log \
-    && chown nginx:nginx /var/lib/nginx/logs/error.log
+    && mkdir -p /var/lib/nginx/tmp/client_body \
+    && chown -R nginx:nginx /run/nginx /var/lib/nginx
 
 COPY rootfs /
 COPY requirements.txt callattendant
