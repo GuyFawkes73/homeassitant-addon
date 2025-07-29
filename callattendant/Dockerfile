@@ -15,6 +15,13 @@ RUN \
       /etc/nginx \
       /tmp/*
 
+RUN mkdir -p /var/lib/nginx/tmp/client_body \
+    && mkdir -p /var/lib/nginx/logs \
+    && mkdir -p /run/nginx \
+    && chown -R nginx:nginx /var/lib/nginx /run/nginx \
+    && touch /var/lib/nginx/logs/error.log \
+    && chown nginx:nginx /var/lib/nginx/logs/error.log
+
 COPY rootfs /
 COPY requirements.txt callattendant
 
