@@ -30,6 +30,7 @@ RUN \
     esac
 
 COPY rootfs /
+COPY requirements.txt callattendant
 
 
 RUN mkdir -p /home/callattendant/.venv \
