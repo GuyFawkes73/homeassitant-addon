@@ -24,6 +24,12 @@ RUN \
              && mkdir -p /var/lib/nginx/tmp/client_body \
              && chown -R root:root /run/nginx /var/lib/nginx /var/log/nginx \
             ;; \
+        "aarch64") \
+             mkdir -p /run/nginx \
+             && mkdir -p /var/lib/nginx/logs \
+             && mkdir -p /var/lib/nginx/tmp/client_body \
+             && chown -R root:root /run/nginx /var/lib/nginx /var/log/nginx \
+            ;; \
         *) \
             echo "Architettura non gestita: ${BUILD_ARCH}, eseguo comandi di default..." \
             ;; \
